@@ -1,0 +1,48 @@
+version: '3.1'
+
+services:
+  rlc_php:
+    container_name: rlc_php
+    build:
+      context: ./php-fpm
+    environment:
+      XDEBUG_CONFIG: "client_host=172.17.0.1"
+      PHP_IDE_CONFIG: "serverName=Docker"
+    volumes:
+      - ../:/var/www
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+    user: ${DOCKER_USER}
+  rlc_mysql_master:
+    container_name: rlc_mysql_master
+    image: mysql:8
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: 'root'
+      MYSQL_DATABASE: 'db'
+      MYSQL_USER: 'user'
+      MYSQL_PASSWORD: 'password'
+    ports:
+      - '3306:3306'
+    volumes:
+      - rlc_mysql_master:/var/lib/mysql
+      - ./mysql/master:/etc/mysql/conf.d
+  rlc_mysql_slave:
+    container_name: rlc_mysql_slave
+    image: mysql:8
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: 'root'
+      MYSQL_DATABASE: 'db'
+      MYSQL_USER: 'user'
+      MYSQL_PASSWORD: 'password'
+    ports:
+      - '3307:3306'
+    volumes:
+      - rlc_mysql_slave:/var/lib/mysql
+      - ./mysql/slave:/etc/mysql/conf.d
+
+volumes:
+  rlc_mysql_master:
+  rlc_mysql_slave:

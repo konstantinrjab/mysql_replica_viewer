@@ -1,0 +1,5 @@
+[mysqld]
+server-id = 2
+relay-log = /var/lib/mysql/mysql-relay-bin
+relay-log-index = /var/lib/mysql/mysql-relay-bin.index
+replicate-do-db = db

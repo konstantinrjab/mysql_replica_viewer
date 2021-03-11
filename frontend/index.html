@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mysql monitor</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Master count</h5>
+                    <span id="master-count">0</span>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Slave count</h5>
+                    <span id="slave-count">0</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row pt-5">
+        <form>
+            <div class="mb-3">
+                <label for="loadValue" class="form-label">Load value</label>
+                <input type="text" class="form-control" id="loadValue" placeholder="5">
+            </div>
+            <button type="button" class="btn btn-primary" onclick="setLoad()">Set</button>
+        </form>
+    </div>
+</div>
+</body>
+<script>
+    function setLoad() {
+        let request = new XMLHttpRequest();
+        request.open('POST', window.location.href);
+
+        let formData = new FormData();
+        let value = document.getElementById('loadValue').value
+        formData.append('load_value', value);
+
+        request.send(formData);
+    }
+
+    let socket = new WebSocket('ws://' + window.location.hostname + ':8081' + '/client');
+    socket.onmessage = (msg) => {
+        let response = JSON.parse(msg.data);
+        document.getElementById('master-count').innerHTML = response.data.master_count
+        document.getElementById('slave-count').innerHTML = response.data.slave_count
+    };
+</script>
+</html>
