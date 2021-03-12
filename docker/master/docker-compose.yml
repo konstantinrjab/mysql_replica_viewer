@@ -6,11 +6,10 @@ services:
     build:
       context: php-fpm
     volumes:
-      - ../:/var/www
+      - ../../:/var/www
     ports:
       - "80:8080"
       - "8081:8081"
-    user: ${DOCKER_USER}
   rlc_mysql_master:
     container_name: rlc_mysql_master
     image: mysql:8

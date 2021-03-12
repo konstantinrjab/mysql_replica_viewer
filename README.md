@@ -24,7 +24,7 @@ docker exec rlc_php bash -c "cd scripts && php websocket_server.php" &>/dev/null
 on master
 ```shell
 docker run --rm --interactive --tty --volume ${PWD}:/app composer install --ignore-platform-reqs --no-scripts
-DOCKER_USER=$(id -u):$(id -g) docker-compose -f "./docker/master/docker-compose.yml" up -d
+docker-compose -f "./docker/master/docker-compose.yml" up -d
 ```
 - up docker-compose from docker/master and docker/slave respectively
 - set up master and slave
