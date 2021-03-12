@@ -14,7 +14,7 @@ services:
       - '3306:3306'
     volumes:
       - rlc_mysql_slave:/var/lib/mysql
-      - ./mysql/slave:/etc/mysql/conf.d
+      - ./mysql:/etc/mysql/conf.d
 
 volumes:
   rlc_mysql_slave:

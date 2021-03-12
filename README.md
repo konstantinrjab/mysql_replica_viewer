@@ -51,7 +51,7 @@ and save File and Position values and use it command below
 
 slave queries:
 ```sql
-CHANGE MASTER TO MASTER_HOST = "rlc_mysql_master", MASTER_USER = "replication", MASTER_PASSWORD = "jCeeYKW6FVcXHW7Y", MASTER_LOG_FILE = "mysql-bin.000006", MASTER_LOG_POS = 1954;
+CHANGE MASTER TO MASTER_HOST = "207.154.247.148", MASTER_USER = "replication", MASTER_PASSWORD = "jCeeYKW6FVcXHW7Y", MASTER_LOG_FILE = "mysql-bin.000006", MASTER_LOG_POS = 1954;
 START SLAVE;
 SHOW SLAVE STATUS\G;
 ```
