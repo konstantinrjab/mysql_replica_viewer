@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 require '../vendor/autoload.php';
 
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
+$dotenv->load();
+
 $pdo = \App\MysqlConnector::getMaster();
 
 $pdo->exec("CREATE TABLE table_1 (

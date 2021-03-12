@@ -7,8 +7,10 @@ RUN pecl install xdebug-3.0.3 \
 
 COPY php.ini $PHP_INI_DIR
 
-CMD ["php-fpm"]
-
 EXPOSE 9003
 
 WORKDIR /var/www
+
+#CMD ["php /var/www/scripts/load_server.php"]
+
+CMD ["php-fpm"]

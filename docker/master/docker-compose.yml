@@ -1,0 +1,30 @@
+version: '3.1'
+
+services:
+  rlc_php:
+    container_name: rlc_php
+    build:
+      context: php-fpm
+    volumes:
+      - ../:/var/www
+    ports:
+      - "80:8080"
+      - "8081:8081"
+    user: ${DOCKER_USER}
+  rlc_mysql_master:
+    container_name: rlc_mysql_master
+    image: mysql:8
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: 'root'
+      MYSQL_DATABASE: 'db'
+      MYSQL_USER: 'user'
+      MYSQL_PASSWORD: 'password'
+    ports:
+      - '3306:3306'
+    volumes:
+      - rlc_mysql_master:/var/lib/mysql
+      - ./mysql/master:/etc/mysql/conf.d
+
+volumes:
+  rlc_mysql_master:
