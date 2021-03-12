@@ -23,7 +23,7 @@ services:
       - '3306:3306'
     volumes:
       - rlc_mysql_master:/var/lib/mysql
-      - ./mysql/master:/etc/mysql/conf.d
+      - ./mysql:/etc/mysql/conf.d
 
 volumes:
   rlc_mysql_master:
