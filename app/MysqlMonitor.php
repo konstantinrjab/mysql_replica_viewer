@@ -11,10 +11,16 @@ class MysqlMonitor
         return $pdoMaster->query("SELECT COUNT(*) FROM $tableName")->fetchColumn();
     }
 
-    public static function getCountSlave(string $tableName): int
+    public static function getCountSlaves(string $tableName): array
     {
-        $pdoSlave = MysqlConnector::getSlave();
+        $counts = [];
+        $number = 1;
+        while (!empty($_ENV['SLAVE_HOST_' . $number])) {
+            $pdoSlave = MysqlConnector::getSlave($number);
+            $counts[$number] = $pdoSlave->query("SELECT COUNT(*) FROM $tableName")->fetchColumn();
+            $number++;
+        }
 
-        return $pdoSlave->query("SELECT COUNT(*) FROM $tableName")->fetchColumn();
+        return $counts;
     }
 }

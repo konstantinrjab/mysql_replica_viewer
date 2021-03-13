@@ -1,8 +1,8 @@
 version: '3.1'
 
 services:
-  rlc_mysql_slave:
-    container_name: rlc_mysql_slave
+  mysql:
+    container_name: mysql
     image: mysql:8
     command: --default-authentication-plugin=mysql_native_password
     environment:
@@ -13,8 +13,8 @@ services:
     ports:
       - '3306:3306'
     volumes:
-      - rlc_mysql_slave:/var/lib/mysql
+      - mysql:/var/lib/mysql
       - ./mysql:/etc/mysql/conf.d
 
 volumes:
-  rlc_mysql_slave:
+  mysql:

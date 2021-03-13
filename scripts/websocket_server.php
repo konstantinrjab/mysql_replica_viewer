@@ -19,7 +19,7 @@ $server->addTimer(2000, function () use ($client) {
     if ($client->hasActiveConnections()) {
         $client->notify([
             'master_count' => \App\MysqlMonitor::getCountMaster('table_1'),
-            'slave_count' => \App\MysqlMonitor::getCountSlave('table_1'),
+            'slaves_count' => \App\MysqlMonitor::getCountSlaves('table_1'),
         ]);
     }
 });
